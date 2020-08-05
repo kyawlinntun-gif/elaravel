@@ -25,4 +25,5 @@ Route::resource('home', 'HomeController');
 
 Route::resource('/admin', 'AdminController');
 Route::get('/dashboard', 'AdminController@dashboard');
+Auth::routes();
 

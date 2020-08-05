@@ -44,6 +44,20 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ auth()->user() ? auth()->user()->name : 'Username' }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @auth
+                            <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout').submit();">Logout</a>
+                            <form action="{{ route('logout') }}" method="post" id="logout">
+                                @csrf
+                            </form>
+                        @endauth
+                    </div>
+                </li>
             </ul>
 
             <!-- SEARCH FORM -->
