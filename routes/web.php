@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,7 @@ Route::resource('home', 'HomeController');
 Route::resource('/admin', 'AdminController');
 Route::get('/dashboard', 'AdminController@dashboard');
 Auth::routes();
+
+// Category
+Route::resource('category', 'CategoryController');
 
