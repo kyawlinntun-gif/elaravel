@@ -30,4 +30,6 @@ Auth::routes();
 
 // Category
 Route::resource('category', 'CategoryController');
+// Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
+Route::post('category/status', 'CategoryController@status');
 

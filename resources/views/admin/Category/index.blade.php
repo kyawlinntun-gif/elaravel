@@ -4,37 +4,93 @@
 
     <div class="categroy_index">
         <div class="content-wrapper">
-            <table class="table m-2">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
+            @if($categories)
+                <table class="table m-2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($categories as $category)
+                            <tr>
+                                <th scope="row">{{ $category->id }}</th>
+                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->description }}</td>
+                                <td class="status-bar"><span class="badge {{ $category->publication_status === 1 ? 'badge-success' : 'badge-secondary' }}">{{ $category->publication_status === 1 ? 'Active' : 'Unactive' }}</span></td>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="status badge {{ $category->publication_status === 0 ? 'badge-success' : 'badge-secondary' }}" data-id="{{ $category->id }}" data-status="{{ $category->publication_status === 1 ? 0 : 1 }}"><i class="far {{ $category->publication_status === 0 ? 'fa-thumbs-up' : 'fa-thumbs-down' }}"></i></a>
+                                    <a href="#" class="badge badge-info"><i class="far fa-edit"></i></a>
+                                    <a href="#" class="badge badge-danger"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
 
+@endsection
+
+@section('jQuery')
+    <script>
+        $(document).ready(function(){
+            $('.status').on('click', function(){
+                var target = $(this);
+                var children = target.children();
+                var id = $(this).attr('data-id');
+                var status = $(this).attr('data-status');
+                var token = "{{ csrf_token()}}";
+                var status_bar = target.parent().parent().children('td.status-bar');
+                // var method = "{{ method_field('put') }}";
+
+                $.ajax({
+                    url: '{{ url("category/status") }}',
+                    // type: 'post',
+                    method: 'post',
+                    dataType: "json",
+                    // data: {_method: method, _token: token, id: id, status: status},
+                    data: {_token: token, id: id, status: status},
+                    success: function(data){
+                        // console.log(data);
+                        // console.log(data.category.publication_status);
+                        // console.log(target);   
+                        if(data.category.publication_status == 1)
+                        {
+                            target.attr('data-status', '0');
+                            target.removeClass('badge-success');
+                            target.addClass('badge-secondary');
+                            children.removeClass('fa-thumbs-up');
+                            children.addClass('fa-thumbs-down');
+                            status_bar.children('span').html('active');
+                            status_bar.children('span').removeClass('badge-secondary');
+                            status_bar.children('span').addClass('badge-success');
+                            // console.log('0');
+                        }
+                        else
+                        {
+                            target.attr('data-status', '1');
+                            target.removeClass('badge-secondary');
+                            target.addClass('badge-success');
+                            children.removeClass('fa-thumbs-down');
+                            children.addClass('fa-thumbs-up');
+                            status_bar.children('span').html('unactive');
+                            status_bar.children('span').removeClass('badge-success');
+                            status_bar.children('span').addClass('badge-secondary');
+                            // console.log('1');
+                        }
+                    },
+                    error: function(data)
+                    {
+                        console.log(data);
+                    } 
+                });
+            });
+        });
+    </script>
 @endsection

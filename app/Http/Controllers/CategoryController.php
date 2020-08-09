@@ -11,7 +11,15 @@ class CategoryController extends Controller
     
     public function index()
     {
-        return view('admin.Category.index');
+        $categories = Category::all();
+        return view('admin.Category.index', [
+            'categories' => $categories
+        ]);
+    }
+
+    public function show()
+    {
+
     }
 
     public function create()
@@ -33,6 +41,19 @@ class CategoryController extends Controller
         $category->publication_status = $request->publication_status ? $request->publication_status : false;
         $category->save();
         return redirect()->back()->with('success', 'Category was created successfully!');
+    }
+
+    public function status(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        $category = Category::findOrFail($id);
+        $category->publication_status = $status;
+        $category->update();
+
+        return response([
+            'category' => $category 
+        ]);
     }
 
 }
