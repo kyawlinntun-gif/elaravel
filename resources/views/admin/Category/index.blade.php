@@ -4,6 +4,7 @@
 
     <div class="categroy_index">
         <div class="content-wrapper">
+            @include('messages.success.success')
             @if($categories)
                 <table class="table m-2">
                     <thead class="thead-dark">
@@ -24,8 +25,8 @@
                                 <td class="status-bar"><span class="badge {{ $category->publication_status === 1 ? 'badge-success' : 'badge-secondary' }}">{{ $category->publication_status === 1 ? 'Active' : 'Unactive' }}</span></td>
                                 <td class="d-flex justify-content-between align-items-center">
                                     <a href="#" class="status badge {{ $category->publication_status === 0 ? 'badge-success' : 'badge-secondary' }}" data-id="{{ $category->id }}" data-status="{{ $category->publication_status === 1 ? 0 : 1 }}"><i class="far {{ $category->publication_status === 0 ? 'fa-thumbs-up' : 'fa-thumbs-down' }}"></i></a>
-                                    <a href="#" class="badge badge-info"><i class="far fa-edit"></i></a>
-                                    <a href="#" class="badge badge-danger"><i class="far fa-trash-alt"></i></a>
+                                    <a href="{{ route('category.edit', $category->id) }}" class="badge badge-info"><i class="far fa-edit"></i></a>
+                                    <a href="#" class="badge badge-danger delete" data-id="{{ $category->id }}"><i class="far fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -45,7 +46,8 @@
                 var children = target.children();
                 var id = $(this).attr('data-id');
                 var status = $(this).attr('data-status');
-                var token = "{{ csrf_token()}}";
+                // var token = "{{ csrf_token()}}";
+                var token = "{{ Session::token() }}";
                 var status_bar = target.parent().parent().children('td.status-bar');
                 // var method = "{{ method_field('put') }}";
 
@@ -55,7 +57,7 @@
                     method: 'post',
                     dataType: "json",
                     // data: {_method: method, _token: token, id: id, status: status},
-                    data: {_token: token, id: id, status: status},
+                    data: {_method: 'put', _token: token, id: id, status: status},
                     success: function(data){
                         // console.log(data);
                         // console.log(data.category.publication_status);
@@ -91,6 +93,31 @@
                     } 
                 });
             });
+
+            $('.delete').on('click', function(e){
+                e.preventDefault();
+                if(confirm("Are you sure"))
+                {
+                    var id = $(this).attr('data-id');
+                    var token = "{{ Session::token() }}";
+                    // console.log(id);
+                    $.ajax({
+                        url: '{{ url("category") }}' + '/' + id,
+                        method: 'POST',
+                        data: {_method: 'DELETE', _token: token},
+                        success: function(resp){
+                            location.reload();
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    });
+                }
+                else
+                {
+                    return false;
+                }
+            })
         });
     </script>
 @endsection

@@ -29,7 +29,9 @@ Route::get('/dashboard', 'AdminController@dashboard');
 Auth::routes();
 
 // Category
+Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
+// Route::put('category/status', 'CategoryController@status');
 Route::resource('category', 'CategoryController');
-// Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
-Route::post('category/status', 'CategoryController@status');
+
+
 
