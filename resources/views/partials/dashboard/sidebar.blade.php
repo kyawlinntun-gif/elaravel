@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('brand') }}" class="nav-link {{ Request::is('brand') ? 'active' : null }}">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             All Brands
@@ -58,15 +58,15 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('brand/create') }}" class="nav-link {{ Request::is('brand/create') ? 'active' : null }}">
                         <i class="nav-icon fas fa-tree"></i>
                         <p>
-                            All Brand
+                            Add Brand
                         </p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {{ Request::is('product/*') ? 'active' : null }}">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Products 
@@ -75,7 +75,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
+                            <a href="{{ url('product/create') }}" class="nav-link {{ Request::is('product/create') ? 'active' : null }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add Product</p>
                             </a>

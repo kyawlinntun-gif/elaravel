@@ -15,13 +15,13 @@
                         <input type="text" class="form-control" id="category_name" placeholder="Enter Category Name"
                             value="{{ old('category_name') ? old('category_name') : null }}" name="category_name">
                     </div>
-                    @include('messages.errors.category_name')
+                    @include('messages.errors.category.category_name')
                     <div class="form-group">
                         <label for="category_description">Category Description</label>
                         <textarea name="category_description" id="category_description" cols="30" rows="10"
                             class="form-control">{{ old('category_description') ? old('category_description') : null }}</textarea>
                     </div>
-                    @include('messages.errors.category_description')
+                    @include('messages.errors.category.category_description')
                     <div class="form-check pl-0">
                         <label for="publication_status" class="mr-1">Publication Status</label>
                         <input type="checkbox" id="publication_status" value="1" name="publication_status">

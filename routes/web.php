@@ -33,5 +33,12 @@ Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
 // Route::put('category/status', 'CategoryController@status');
 Route::resource('category', 'CategoryController');
 
+// Brand or Manufacture
+Route::match(['put', 'patch'], 'brand/status', 'BrandController@status');
+Route::resource('brand', 'BrandController');
+
+// Product
+Route::resource('product', 'ProductController');
+
 
 
