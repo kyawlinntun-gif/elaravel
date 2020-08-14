@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ Request::is('product/*') ? 'active' : null }}">
+                    <a href="#" class="nav-link {{ Request::is('product*') ? 'active' : null }}">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Products 
@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/advanced.html" class="nav-link">
+                            <a href="{{ url('product') }}" class="nav-link {{ Request::is('product') ? 'active' : null }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Products</p>
                             </a>

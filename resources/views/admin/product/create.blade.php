@@ -6,7 +6,7 @@
         <div class="content-wrapper">
             <!-- form start -->
             @include('messages.success.success')
-            <form role="form" method="POST" action="{{ url('product') }}">
+            <form role="form" method="POST" action="{{ url('product') }}" enctype="multipart/form-data">
                 <h1>Add Product</h1>
                 @csrf
                 <div class="card-body">
@@ -40,7 +40,8 @@
 
                     <div class="form-group">
                         <label for="product_image">Product Image</label>
-                        <input type="text" name="product_image" id="product_image" class="form-control" value="{{ old('product_image') ? old('product_image') : null }}">
+                        {{-- <input type="text" name="product_image" id="product_image" class="form-control" value="{{ old('product_image') ? old('product_image') : null }}"> --}}
+                        <input type="file" name="product_image[]" id="product_image" class="form-control" multiple>
                     </div>
                     @include('messages.errors.product.image')
 
@@ -59,11 +60,9 @@
                     <div class="form-group">
                         <label for="category">Select Category</label>
                         <select class="form-control" id="category" name="category_id">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     @include('messages.errors.product.category_id')
@@ -71,11 +70,9 @@
                     <div class="form-group">
                         <label for="brand">Select Brand</label>
                         <select class="form-control" id="brand" name="brand_id">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     @include('messages.errors.product.brand_id')
