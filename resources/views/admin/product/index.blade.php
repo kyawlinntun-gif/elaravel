@@ -41,6 +41,11 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="10">{{ $products->links() }}</td>
+                        </tr>
+                    </tfoot>
                 </table>
             @endif
         </div>
@@ -62,7 +67,7 @@
                 // var method = "{{ method_field('put') }}";
 
                 $.ajax({
-                    url: '{{ url("brand/status") }}',
+                    url: '{{ url("product/status") }}',
                     // type: 'post',
                     method: 'post',
                     dataType: "json",
@@ -72,7 +77,7 @@
                         // console.log(data);
                         // console.log(data.brand.publication_status);
                         // console.log(target);   
-                        if(data.brand.publication_status == 1)
+                        if(data.product.publication_status == 1)
                         {
                             target.attr('data-status', '0');
                             target.removeClass('badge-success');
@@ -112,7 +117,7 @@
                     var token = "{{ Session::token() }}";
                     // console.log(id);
                     $.ajax({
-                        url: '{{ url("brand") }}' + '/' + id,
+                        url: '{{ url("product") }}' + '/' + id,
                         method: 'POST',
                         data: {_method: 'DELETE', _token: token},
                         success: function(resp){

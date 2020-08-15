@@ -24,21 +24,27 @@ Route::resource('home', 'HomeController');
 
 // BackEnd
 
-Route::resource('/admin', 'AdminController');
-Route::get('/dashboard', 'AdminController@dashboard');
 Auth::routes();
 
-// Category
-Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
-// Route::put('category/status', 'CategoryController@status');
-Route::resource('category', 'CategoryController');
+Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], function(){
 
-// Brand or Manufacture
-Route::match(['put', 'patch'], 'brand/status', 'BrandController@status');
-Route::resource('brand', 'BrandController');
+    Route::resource('/admin', 'AdminController');
+    Route::get('/dashboard', 'AdminController@dashboard');
+    
+    // Category
+    Route::match(['put', 'patch'],'category/status', 'CategoryController@status');
+    // Route::put('category/status', 'CategoryController@status');
+    Route::resource('category', 'CategoryController');
 
-// Product
-Route::resource('product', 'ProductController');
+    // Brand or Manufacture
+    Route::match(['put', 'patch'], 'brand/status', 'BrandController@status');
+    Route::resource('brand', 'BrandController');
+
+    // Product
+    Route::match(['put', 'patch'], 'product/status', 'ProductController@status');
+    Route::resource('product', 'ProductController');
+
+});
 
 
 

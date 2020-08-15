@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Image;
+use App\Product;
 use App\Category;
 use App\Manufacture;
-use App\Product;
 use Illuminate\Http\Request;
-use Image;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
 
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(15);
         return view('admin.product.index', [
             'products' => $products
         ]);
@@ -107,5 +108,29 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()->back()->with('success', 'Product was created successfully!');
+    }
+
+    public function status(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        $product = Product::findOrFail($id);
+        $product->publication_status = $status;
+        $product->update();
+
+        return response([
+            'product' => $product 
+        ]);
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        Session::flash('success', 'Brand was deleted successfully!');
+        
+        return response([
+            'success' => true
+        ]);
     }
 }
