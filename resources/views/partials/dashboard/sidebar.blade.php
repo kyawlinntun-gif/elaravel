@@ -89,12 +89,26 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                    <a href="#" class="nav-link {{ Request::is('slider*') ? 'active' : null }}">
+                        <i class="nav-icon fas fa-edit"></i>
                         <p>
-                            Slider
+                            Sliders 
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('slider/create') }}" class="nav-link {{ Request::is('slider/create') ? 'active' : null }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Slider</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('slider') }}" class="nav-link {{ Request::is('slider') ? 'active' : null }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Sliders</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">

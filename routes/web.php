@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // FrontEnd
 
 Route::get('/', function(){
-    return redirect()->action('HomeController@index');
+    return redirect('home');
 });
 
 Route::resource('home', 'HomeController');
@@ -25,10 +25,10 @@ Route::resource('home', 'HomeController');
 // BackEnd
 
 Auth::routes();
+Route::resource('/admin', 'AdminController');
 
 Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], function(){
 
-    Route::resource('/admin', 'AdminController');
     Route::get('/dashboard', 'AdminController@dashboard');
     
     // Category
@@ -43,6 +43,14 @@ Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], fun
     // Product
     Route::match(['put', 'patch'], 'product/status', 'ProductController@status');
     Route::resource('product', 'ProductController');
+
+    // Slider
+    Route::match(['put', 'patch'], 'slider/status', 'SliderController@status');
+    Route::resource('slider', 'SliderController');
+
+    // Products by Category
+    Route::get('category/all/products', 'HomeController@index');
+    Route::get('category/{category_id}/products', 'HomeController@index');
 
 });
 
