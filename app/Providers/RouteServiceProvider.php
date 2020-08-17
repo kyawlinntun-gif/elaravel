@@ -33,6 +33,12 @@ class RouteServiceProvider extends ServiceProvider
         // Category_id
         Route::pattern('category_id', '[0-9]+');
 
+        // Brand_id
+        Route::pattern('brand_id', '[0-9]+');
+
+        // Product_id
+        Route::pattern('product_id', '[0-9]+');
+
         parent::boot();
     }
 

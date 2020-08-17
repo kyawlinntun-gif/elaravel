@@ -27,10 +27,17 @@
 <body>
 	
 	{{-- header --}}
-	@include('partials.frontend.header')
+    @include('partials.frontend.header')
+    
+    {{-- slider --}}
+    @section('slider')
+        
+    @show
 	
     {{-- section --}}
-    @yield('section')
+    @section('section')
+
+    @show
 	
 	{{-- footer --}}
 	@include('partials.frontend.footer')
@@ -41,5 +48,8 @@
 	<script src="{{ asset('frontend/js/price-range.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+
+    {{-- jQuery --}}
+    @yield('jquery')
 </body>
 </html>

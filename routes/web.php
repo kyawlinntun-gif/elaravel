@@ -22,6 +22,21 @@ Route::get('/', function(){
 
 Route::resource('home', 'HomeController');
 
+// Products by Category
+Route::get('category/all/products', 'HomeController@index');
+Route::get('category/{category_id}/products', 'HomeController@index');
+
+// Products by Manufacture
+Route::get('brand/all/products', 'HomeController@index');
+Route::get('brand/{brand_id}/products', 'HomeController@index');
+
+// Products detail
+Route::get('product/show/{product_id}', 'HomeController@productShow');
+
+// Cart add
+Route::post('cart/add', 'ShoppingCartController@addCart');
+Route::get('cart', 'ShoppingCartController@index');
+
 // BackEnd
 
 Auth::routes();
@@ -47,10 +62,6 @@ Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], fun
     // Slider
     Route::match(['put', 'patch'], 'slider/status', 'SliderController@status');
     Route::resource('slider', 'SliderController');
-
-    // Products by Category
-    Route::get('category/all/products', 'HomeController@index');
-    Route::get('category/{category_id}/products', 'HomeController@index');
 
 });
 

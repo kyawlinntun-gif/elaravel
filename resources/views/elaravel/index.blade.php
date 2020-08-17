@@ -2,7 +2,7 @@
 
 @section('title', 'Home')
 
-@section('section')
+@section('slider')
 
     <section id="slider"><!--slider-->
         <div class="container">
@@ -49,6 +49,10 @@
         </div>
     </section><!--/slider-->
 
+@endsection
+
+@section('section')
+
     <section>
         <div class="container">
             <div class="row">
@@ -66,11 +70,11 @@
                         </div><!--/category-products-->
                     
                         <div class="brands_products"><!--brands_products-->
-                            <h2>Brands</h2>
+                            <h2><a href="{{ url('brand/all/products') }}" class="text-decoration-none">Brand</a></h2>
                             <div class="brands-name">
                                 <ul class="nav nav-pills nav-stacked">
                                     @foreach ($brands as $brand)
-                                        <li><a href="#"> <span class="pull-right">({{ count($brand->products->where('publication_status', 1)) }})</span>{{ $brand->name }}</a></li>
+                                        <li><a href="{{ url('brand/'. $brand->id . '/products') }}"> <span class="pull-right">({{ count($brand->products->where('publication_status', 1)) }})</span>{{ $brand->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -85,7 +89,7 @@
                         </div><!--/price-range-->
                         
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="images/home/shipping.jpg" alt="" />
+                            <img src="{{ url('frontend/images/home/shipping.jpg') }}" alt="" />
                         </div><!--/shipping-->
                     
                     </div>
@@ -94,9 +98,9 @@
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Features Items</h2>
-
+            
                         @foreach ($products as $product)
-
+            
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -110,23 +114,23 @@
                                                 <div class="overlay-content">
                                                     <h2>${{ $product->price }}</h2>
                                                     <p>{{ $product->name }}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    <a href="{{ url('product/show/' .$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
                                     </div>
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>{{ $product->manufacture->name }}</a></li>
+                                            <li><a href="{{ url('product/show/'. $product->id) }}"><i class="fa fa-plus-square"></i>View Product</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             
                         @endforeach
-
+            
                     </div><!--features_items-->
-
+            
                     <div>{{ $products->links() }}</div>
                     
                     <div class="category-tab"><!--category-tab-->
