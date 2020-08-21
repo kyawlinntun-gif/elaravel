@@ -18,12 +18,28 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect()->back();
+        // if (Auth::guard($guard)->check()) {
+        //     return redirect()->back();
+        // }
+
+        // // return redirect()->back();
+
+        // return $next($request);
+
+        switch($guard){
+            case 'customer':
+                if(Auth::guard($guard)->check()){
+                    return redirect()->back();
+                }
+                break;
+            default:
+                if(Auth::guard($guard)->check()){
+                    return redirect()->back();
+                }
+                break;
         }
 
-        // return redirect()->back();
-
-        return $next($request);
+        return $next($request);        
     }
+    
 }

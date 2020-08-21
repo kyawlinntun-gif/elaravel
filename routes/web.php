@@ -35,7 +35,29 @@ Route::get('product/show/{product_id}', 'HomeController@productShow');
 
 // Cart add
 Route::post('cart/add', 'ShoppingCartController@addCart');
+Route::match(['put', 'patch'], 'cart/edit', 'ShoppingCartController@update');
+Route::delete('cart/delete', 'ShoppingCartController@delete');
 Route::get('cart', 'ShoppingCartController@index');
+
+// Cart Checkout
+
+Route::group(['middleware' => ['auth:customer']], function(){
+    Route::get('checkout', 'CheckOutController@index');
+});
+
+// Customer Login
+Route::group(['prefix' => 'customer', 'namespace' => 'AuthCustomer', 'as' => 'customer.'], function(){
+    // Login
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login')->name('login');
+
+    // Register
+    Route::get('register', 'RegisterController@showRegisterForm')->name('register');
+    Route::post('register', 'RegisterController@register')->name('register');
+
+    // Logout
+    Route::post('logout', 'LoginController@logout')->name('logout');
+});
 
 // BackEnd
 
