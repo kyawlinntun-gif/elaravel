@@ -42,7 +42,7 @@ Route::get('cart', 'ShoppingCartController@index');
 // Cart Checkout
 
 Route::group(['middleware' => ['auth:customer']], function(){
-    Route::get('checkout', 'CheckOutController@index');
+    Route::post('checkout', 'CheckOutController@index');
 });
 
 // Customer Login

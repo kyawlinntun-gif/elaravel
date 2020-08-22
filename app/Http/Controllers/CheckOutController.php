@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class CheckOutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('elaravel.checkout.index');
+        return $request->all();
+        // return view('elaravel.checkout.index');
     }
 }
