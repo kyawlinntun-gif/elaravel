@@ -27,7 +27,7 @@ class RegisterController extends Controller
             'name' => 'required|string|min:3|max:15',
             'email' => 'required|email|unique:customers,email',
             'password' => 'required|string|min:8|confirmed',
-            'phone_number' => 'required|numeric'
+            'phone_number' => 'required|numeric|digits_between:9,12'
         ]);
 
         $customer = new Customer;

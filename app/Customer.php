@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Order;
+use App\OrderDetail;
+use Illuminate\Support\Facades\App;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+
 // use Spatie\Permission\Traits\HasRoles;
 
 class Customer extends Authenticatable
@@ -40,5 +44,15 @@ class Customer extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    // Order Details
+    public function orderdetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    // Orders
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

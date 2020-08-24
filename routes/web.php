@@ -85,6 +85,10 @@ Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], fun
     Route::match(['put', 'patch'], 'slider/status', 'SliderController@status');
     Route::resource('slider', 'SliderController');
 
+    // Order
+    Route::get('order', 'OrderController@index');
+    Route::get('order/show/{order_id}', 'OrderController@show');
+
 });
 
 

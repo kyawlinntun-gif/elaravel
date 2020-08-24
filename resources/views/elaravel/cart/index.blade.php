@@ -71,8 +71,8 @@
                     <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <form action="{{ url('checkout') }}" method="POST">
+                    <form action="{{ url('checkout') }}" method="POST">
+                        <div class='col-md-6'>
                             @csrf
                             <div class="total_area">
                                 <ul>
@@ -103,12 +103,92 @@
                                                 B-kash
                                             </label>
                                         </div>
+                                        @error('payment')
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bill-to">
+                                <p>Bill To</p>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') ? old('email') : null }}">
+                                </div>
+                                @error('email')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="first_name">First Name</label>
+                                    <input type="first_name" class="form-control" name="first_name" id="first_name" value="{{ old('first_name') ? old('first_name') : null }}">
+                                </div>
+                                @error('first_name')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="last_name" class="form-control" name="last_name" id="last_name" value="{{ old('last_name') ? old('last_name') : null }}">
+                                </div>
+                                @error('last_name')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="address" class="form-control" name="address" id="address" value="{{ old('address') ? old('address') : null }}">
+                                </div>
+                                @error('address')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="mobile_number">Mobile Number</label>
+                                    <input type="mobile_number" class="form-control" name="mobile_number" id="mobile_number" value="{{ old('mobile_number') ? old('mobile_number') : null }}">
+                                </div>
+                                @error('mobile_number')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <select name="city" id="city">
+                                        <option value="Yangon">Yangon</option>
+                                        <option value="Mandalay">Mandalay</option>
+                                        <option value="Maypyidaw">Maypyidaw</option>
+                                        <option value="Taungyi">Taungyi</option>
+                                        <option value="Mawlamyine">Mawlamyine</option>
+                                        <option value="Bago">Bago</option>
+                                        <option value="Monywa">Monywa</option>
+                                        <option value="Myitkyina">Myitkyina</option>
+                                        <option value="Pathein">Pathein</option>
+                                        <option value="Sittwe">Sittwe</option>
+                                        <option value="Pyay">Pyay</option>
+                                        <option value="Pakoku">Pakoku</option>
+                                        <option value="Myeik">Myeik</option>
+                                        <option value="Meiktila">Meiktila</option>
+                                        <option value="Taungoo">Taungoo</option>
+                                    </select>
+                                </div>
+                                @error('city')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                                 <input type="submit" class="btn btn-default check_out" value="Check Out">
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section><!--/#do_action-->

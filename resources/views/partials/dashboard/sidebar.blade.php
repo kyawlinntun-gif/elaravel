@@ -111,10 +111,10 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{ url('order') }}" class="nav-link {{ Request::is('order') ? 'active' : null }}">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
-                            Social Link
+                            Manage Order
                         </p>
                     </a>
                 </li>

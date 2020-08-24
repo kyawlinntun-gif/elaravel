@@ -39,6 +39,9 @@ class RouteServiceProvider extends ServiceProvider
         // Product_id
         Route::pattern('product_id', '[0-9]+');
 
+        // Order_id
+        Route::pattern('order_id', '[0-9]+');
+
         parent::boot();
     }
 

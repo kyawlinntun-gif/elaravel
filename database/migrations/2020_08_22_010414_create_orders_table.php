@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('cascade');
             $table->integer('payment_id')->unsigned();
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
-            $table->integer('total');
+            $table->string('total');
             $table->tinyInteger('status');
             $table->timestamps();
         });
