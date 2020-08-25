@@ -22,7 +22,7 @@
                                 <th scope="row">{{ $order->id }}</th>
                                 <td>{{ $order->customer->name }}</td>
                                 <td>${{ $order->total }}</td>
-                                <td class="status-bar"><span class="badge {{ $order->status === 1 ? 'badge-success' : 'badge-secondary' }}">{{ $order->status === 1 ? 'Active' : 'Unactive' }}</span></td>
+                                <td class="status-bar"><span class="badge {{ $order->status === 1 ? 'badge-success' : 'badge-secondary' }}">{{ $order->status === 1 ? 'Pending' : 'Unpending' }}</span></td>
                                 <td class="d-flex justify-content-between align-items-center">
                                     <a href="#" class="status badge {{ $order->status === 0 ? 'badge-success' : 'badge-secondary' }}" data-id="{{ $order->id }}" data-status="{{ $order->status === 1 ? 0 : 1 }}"><i class="far {{ $order->status === 0 ? 'fa-thumbs-up' : 'fa-thumbs-down' }}"></i></a>
                                     <a href="{{ url('order/show/'.$order->id) }}" class="badge badge-info"><i class="far fa-eye"></i></a>
@@ -52,7 +52,7 @@
                 // var method = "{{ method_field('put') }}";
 
                 $.ajax({
-                    url: '{{ url("category/status") }}',
+                    url: '{{ url("order/status") }}',
                     // type: 'post',
                     method: 'post',
                     dataType: "json",
@@ -62,14 +62,14 @@
                         // console.log(data);
                         // console.log(data.category.publication_status);
                         // console.log(target);   
-                        if(data.category.publication_status == 1)
+                        if(data.order.status == 1)
                         {
                             target.attr('data-status', '0');
                             target.removeClass('badge-success');
                             target.addClass('badge-secondary');
                             children.removeClass('fa-thumbs-up');
                             children.addClass('fa-thumbs-down');
-                            status_bar.children('span').html('active');
+                            status_bar.children('span').html('Pending');
                             status_bar.children('span').removeClass('badge-secondary');
                             status_bar.children('span').addClass('badge-success');
                             // console.log('0');
@@ -81,7 +81,7 @@
                             target.addClass('badge-success');
                             children.removeClass('fa-thumbs-down');
                             children.addClass('fa-thumbs-up');
-                            status_bar.children('span').html('unactive');
+                            status_bar.children('span').html('Unpending');
                             status_bar.children('span').removeClass('badge-success');
                             status_bar.children('span').addClass('badge-secondary');
                             // console.log('1');
@@ -102,7 +102,7 @@
                     var token = "{{ Session::token() }}";
                     // console.log(id);
                     $.ajax({
-                        url: '{{ url("category") }}' + '/' + id,
+                        url: '{{ url("order") }}' + '/' + id,
                         method: 'POST',
                         data: {_method: 'DELETE', _token: token},
                         success: function(resp){

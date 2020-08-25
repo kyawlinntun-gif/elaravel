@@ -38,5 +38,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function getRoleNames(): Collection
+    {
+        return $this->roles->pluck('name');
+    }
+
 }

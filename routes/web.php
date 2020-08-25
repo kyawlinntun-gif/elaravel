@@ -43,6 +43,9 @@ Route::get('cart', 'ShoppingCartController@index');
 
 Route::group(['middleware' => ['auth:customer']], function(){
     Route::post('checkout', 'CheckOutController@index');
+
+    // Account
+    Route::get('account', 'AccountController@index');
 });
 
 // Customer Login
@@ -88,6 +91,8 @@ Route::group(['middleware' => ['auth', 'role:admin', 'permission:manager']], fun
     // Order
     Route::get('order', 'OrderController@index');
     Route::get('order/show/{order_id}', 'OrderController@show');
+    Route::match(['put', 'patch'], 'order/status', 'OrderController@status');
+    Route::delete('order/{order_id}', 'OrderController@destroy');
 
 });
 

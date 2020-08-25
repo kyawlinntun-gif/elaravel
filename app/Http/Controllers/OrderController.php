@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\OrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -29,6 +30,30 @@ class OrderController extends Controller
         $order = $order_id;
         return view('admin.order.show', [
             'order' => $order
+        ]);
+    }
+
+    public function status(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        $order = Order::findOrFail($id);
+        $order->status = $status;
+        $order->update();
+
+        return response([
+            'order' => $order 
+        ]);
+    }
+
+    public function destroy(Order $order_id)
+    {
+        $order = $order_id;
+        $order->delete();
+        Session::flash('success', 'Order was deleted successfully!');
+        // $request->session()->flash('success', 'Category was deleted successfully!');
+        return response([
+            'success' => true
         ]);
     }
 }
